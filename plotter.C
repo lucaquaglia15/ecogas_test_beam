@@ -221,6 +221,7 @@ void plotter() {
 			Double_t *x = effv->GetX();
 			int numPoints = effv->GetN();
 			Double_t *yEff = effv->GetY();
+			Double_t *yEffErr = effv->GetEY();
 
 			cout << fiteff->GetParameter(0) << endl;
 			cout << fiteff->GetParameter(1) << endl;
@@ -345,6 +346,7 @@ void plotter() {
 			TCanvas *civ = (TCanvas*)f1->Get(("I(HV)_curve " + to_string(vrun.at(i))).c_str()); //Get the canvas with the I(V) curve
 			TGraphErrors *iv = (TGraphErrors*)civ->GetListOfPrimitives()->FindObject("Graph"); 
 			Double_t *yCurr = iv->GetY();
+			Double_t *yCurrErr = iv->GetEY();
 			iv->SetMarkerColor(i+1);
 			iv->SetMarkerStyle(i+35);
 			iv->SetMarkerSize(2);
@@ -380,6 +382,7 @@ void plotter() {
 			TCanvas *civdens = (TCanvas*)f1->Get(("Current_density(V)_curve "+to_string(vrun.at(i))).c_str());
 			TGraphErrors *ivdens = (TGraphErrors*)civdens->GetListOfPrimitives()->FindObject("Graph"); 
 			Double_t *yCrrDens = ivdens->GetY();
+			Double_t *yCurrDensErr = ivdens->GetEY();
 			ivdens->SetMarkerColor(i+1);
 			ivdens->SetMarkerStyle(i+35);
 			ivdens->SetMarkerSize(2);
@@ -415,6 +418,7 @@ void plotter() {
 			TCanvas *crate = (TCanvas*)f2->Get(("Cluster_rate(V)_curve_" + plane1 + " " +to_string(vrun.at(i))).c_str()); //Get the canvas with the rate(V) curve for different abs 
 			TGraphErrors *ratev = (TGraphErrors*)crate->GetListOfPrimitives()->FindObject("Graph");
 			Double_t *yRate = ratev->GetY();
+			Double_t *yRateErr = ratev->GetEY();
 			ratev->SetMarkerColor(i+1);
 			ratev->SetMarkerStyle(i+35);
 
@@ -502,7 +506,7 @@ void plotter() {
 			}
 
 			for (int kk = 0; kk < numPoints; kk++) {
-				aliceData << x[kk] << "\t" << yCurr[kk] << "\t" << yCrrDens[kk] << "\t" << yEff[kk] << "\t" << yClus[kk] << "\t" << yRate[kk] << endl;
+				aliceData << x[kk] << "\t" << yCurr[kk] << "\t" << yCurrErr[kk] << "\t" << yCrrDens[kk] << "\t" << yCurrDensErr[kk] << "\t" << yEff[kk] << "\t" << yEffErr[kk] <<"\t" << yClus[kk] << "\t" << yClusError[kk] << "\t" << yRate[kk] << "\t" << yRateErr[kk] << endl;
 			}
 		}
 		aliceData.close();
